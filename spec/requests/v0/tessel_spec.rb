@@ -2,11 +2,25 @@ require 'rails_helper'
 
 RSpec.describe 'Tessel API', :type => :request  do
 	describe 'Registering a tessel' do
-		it 'always returns a 200' do
-			post '/api/tessel/register'
+		context 'with valid parameters' do
+			it 'returns a 201' do
+				post '/api/tessel/register'
 
-			expect(response).to be_success
-			expect(response_json).to eq({})
+				expect(response.status).to eq(201)
+			end
+
+			it 'creates a Tessel database record' do
+				expect {
+					post '/api/tessel/register'
+				}.to change { Tessel.count }.by(1)
+			end
+
+			it 'returns the Tessel device UUID' do
+				post '/api/tessel/register'
+
+				expect(response_json['uuid']).to_not be_nil
+			end
 		end
+
 	end
 end
