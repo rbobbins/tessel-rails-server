@@ -10,7 +10,7 @@ Features
 Installation
 ============
 
-* `git clone https://github.com/rbobbins/tessel-rails-server`.git
-* `brew install postgres` #assuming you're on a Mac, and don't have postgres already
+* `git clone https://github.com/rbobbins/tessel-rails-server.git`
+* `brew install postgres #assuming you're on a Mac, and don't have postgres already` 
 * Follow Homebrew's instructions for running Postgres
 * `bundle install`
