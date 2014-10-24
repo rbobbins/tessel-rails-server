@@ -4,33 +4,32 @@ RSpec.describe 'Tessel API', :type => :request  do
 	describe 'Registering a tessel' do
 		context 'with valid parameters' do
 			it 'returns a 201' do
-				post '/api/tessel/register'
+				post '/api/tessels'
 
 				expect(response.status).to eq(201)
 			end
 
 			it 'creates a Tessel database record' do
 				expect {
-					post '/api/tessel/register'
+					post '/api/tessels/'
 				}.to change { Tessel.count }.by(1)
 			end
 
 			it 'returns the Tessel device UUID' do
-				post '/api/tessel/register'
+				post '/api/tessels'
 
 				expect(response_json['uuid']).to_not be_nil
 			end
 		end
 	end
 
-	describe 'Saving a ping' do
+	describe 'Checking in to a Tessel' do
 		context 'with valid parameters' do
 			let(:tessel_id) { SecureRandom.uuid }
 			let(:device_id) { SecureRandom.uuid }
 
 			it 'returns a 201' do
-				post_json '/api/tessel/ping', { 'checkin' => {
-					'tessel_id' => tessel_id, 
+				post_json "/api/tessels/#{tessel_id}/checkins", { 'checkin' => {
 					'device_id' => device_id} 
 				}
 
@@ -39,9 +38,8 @@ RSpec.describe 'Tessel API', :type => :request  do
 
 			it 'creates a check-in database record' do
 				expect {
-					post_json '/api/tessel/ping', { 'checkin' => {
-					'tessel_id' => tessel_id, 
-					'device_id' => device_id} 
+					post_json "/api/tessels/#{tessel_id}/checkins", { 'checkin' => {
+						'device_id' => device_id} 
 					}
 				}.to change { Checkin.count }.by(1)
 
