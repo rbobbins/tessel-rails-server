@@ -1,7 +1,11 @@
 class Checkin < ActiveRecord::Base
+	belongs_to :tessel
+
 	def to_json
 		{
-			'checkin_id' => id,
+			'id' => id,
+			'device_id' => device_id,
+			'tessel_id' => tessel_id,
 			'created_at' => created_at.iso8601
 		}
 	end

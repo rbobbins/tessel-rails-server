@@ -1,14 +1,21 @@
 class Api::CheckinsController < ApplicationController
 	def create
-		if Tessel.find_by_id(params[:tessel_id])
-			checkin = Checkin.new(checkin_params)
-			if checkin.save
-				render json: checkin.to_json, status: 201
-			end
+		tessel = Tessel.find_by_id(params[:tessel_id])
+		if tessel
+			checkin = Checkin.create(checkin_params.merge(tessel: tessel))
+			render json: checkin.to_json, status: 201
 		else
 			render json: {}, status: 404
 		end
+	end
 
+	def index
+		tessel = Tessel.find_by_id(params[:tessel_id])
+		if tessel
+			render json: tessel.checkins.map(&:to_json)
+		else
+			render json: {}, status: 404
+		end
 	end
 
 	private
