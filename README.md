@@ -3,7 +3,7 @@ Intended to be the backend for the iOS app featured here: https://github.com/rbo
 
 Features
 ========
-* POST to /api/tessels/  - register a new tessel; returns a UUID
+* POST to `/api/tessels/`  - register a new tessel; returns a UUID
 * POST to `/api/tessels/:tessel_id/checkins` - saves the device_id/tessel_id combination, along with timestamp (required params: {checkin: {device_id: SOME_UUID_FOR_THE_DEVICE_THATS_POSTING })
 * GET `/api/tessels/:tessel_id/checkins` - returns a list of checkins associated with this tessel
 
