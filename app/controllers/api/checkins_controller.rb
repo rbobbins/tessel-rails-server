@@ -10,12 +10,13 @@ class Api::CheckinsController < ApplicationController
 	end
 
 	def index
-		tessel = Tessel.find_by_id(params[:tessel_id])
-		if tessel
-			render json: tessel.checkins.map(&:to_json)
-		else
-			render json: {}, status: 404
+		checkins = Checkin.all
+		if params[:tessel_id]
+			tessel = Tessel.find_by_id(params[:tessel_id])
+			checkins = tessel ? tessel.checkins : []
 		end
+
+		render json: checkins.map(&:to_json)
 	end
 
 	private

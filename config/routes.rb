@@ -3,5 +3,7 @@ Rails.application.routes.draw do
     resources :tessels, only: :create do
       resources :checkins, only: [:create, :index]
     end
+
+    resources :checkins, only: :index
   end
 end
